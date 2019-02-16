@@ -19,12 +19,12 @@ interface State {
   password: string;
 }
 
-export class SignInScreen extends React.PureComponent<
+export class SignUpScreen extends React.PureComponent<
   NavigationInjectedProps,
   State
 > {
   static navigationOptions = {
-    title: 'Sign In',
+    title: 'Sign Up',
   };
 
   state = {
@@ -37,16 +37,6 @@ export class SignInScreen extends React.PureComponent<
       const user = await firebase
         .auth()
         .createUserWithEmailAndPassword(this.state.login, this.state.password);
-    } catch (e) {
-      Alert.alert('error', e.message);
-    }
-  };
-
-  onSignIn = async () => {
-    try {
-      const user = await firebase
-        .auth()
-        .signInWithEmailAndPassword(this.state.login, this.state.password);
     } catch (e) {
       Alert.alert('error', e.message);
     }
@@ -73,10 +63,9 @@ export class SignInScreen extends React.PureComponent<
           secureTextEntry
           value={this.state.password}
         />
-
         <TouchableHighlight
           underlayColor={palette.underlay}
-          onPress={this.onSignIn}
+          onPress={this.onSignUp}
         >
           <View style={styles.container}>
             <Image
@@ -86,7 +75,7 @@ export class SignInScreen extends React.PureComponent<
                   'https://facebook.github.io/react-native/docs/assets/favicon.png',
               }}
             />
-            <Text style={styles.text}>Login</Text>
+            <Text style={styles.text}>Register</Text>
           </View>
         </TouchableHighlight>
       </View>

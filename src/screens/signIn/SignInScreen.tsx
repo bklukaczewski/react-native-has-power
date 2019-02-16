@@ -20,7 +20,7 @@ export class SignInScreen extends React.PureComponent<NavigationInjectedProps, S
       password: '',
   };
 
-  onSubmit = async () => {
+  onSignUp = async () => {
       try {
           const user = await firebase.auth().createUserWithEmailAndPassword(
               this.state.login, this.state.password
@@ -29,6 +29,16 @@ export class SignInScreen extends React.PureComponent<NavigationInjectedProps, S
           Alert.alert('error', e.message);
       }
   };
+
+    onSignIn = async () => {
+        try {
+            const user = await firebase.auth().signInWithEmailAndPassword(
+                this.state.login, this.state.password
+            );
+        } catch (e) {
+            Alert.alert('error', e.message);
+        }
+    };
 
   componentDidMount() {
     SplashScreen.hide();
@@ -51,7 +61,18 @@ export class SignInScreen extends React.PureComponent<NavigationInjectedProps, S
                   secureTextEntry
                   value={this.state.password}
               />
-          <TouchableHighlight underlayColor={palette.underlay} onPress={this.onSubmit}>
+          <TouchableHighlight underlayColor={palette.underlay} onPress={this.onSignUp}>
+              <View
+                  style={styles.container}>
+                  <Image
+                      style={styles.buttonImage}
+                      source={{uri: 'https://facebook.github.io/react-native/docs/assets/favicon.png'}}
+                  />
+                  <Text style={styles.text}>Register</Text>
+              </View>
+          </TouchableHighlight>
+
+          <TouchableHighlight underlayColor={palette.underlay} onPress={this.onSignIn}>
               <View
                   style={styles.container}>
                   <Image

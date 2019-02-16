@@ -42,6 +42,10 @@ export class SignInScreen extends React.PureComponent<
     }
   };
 
+  navigateToSignUp = () => {
+    this.props.navigation.navigate('SignUp');
+  };
+
   onSignIn = async () => {
     try {
       const user = await firebase
@@ -87,6 +91,22 @@ export class SignInScreen extends React.PureComponent<
               }}
             />
             <Text style={styles.text}>Login</Text>
+          </View>
+        </TouchableHighlight>
+
+        <TouchableHighlight
+            underlayColor={palette.underlay}
+            onPress={this.navigateToSignUp}
+        >
+          <View style={styles.container}>
+            <Image
+                style={styles.buttonImage}
+                source={{
+                  uri:
+                      'https://facebook.github.io/react-native/docs/assets/favicon.png',
+                }}
+            />
+            <Text style={styles.text}>Go to sign up</Text>
           </View>
         </TouchableHighlight>
       </View>

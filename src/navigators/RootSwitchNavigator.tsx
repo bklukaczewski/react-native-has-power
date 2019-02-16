@@ -5,6 +5,7 @@ import {
 } from 'react-navigation';
 
 import { SignInScreen } from '../screens/signIn/SignInScreen';
+import {MainTabNavigator} from './AuthenticatedTabNavigator';
 import {UnauthenticatedStackNavigator} from './UnauthenticatedStackNavigator';
 
 /*
@@ -12,8 +13,9 @@ import {UnauthenticatedStackNavigator} from './UnauthenticatedStackNavigator';
  * from every point in the app. It might be a perfect choice to put your
  * modal and dialog screens.
  * */
-export const RootStackNavigator = createSwitchNavigator(
+export const RootSwitchNavigator = createSwitchNavigator(
   {
     Unauthenticated: UnauthenticatedStackNavigator,
+    Authenticated: MainTabNavigator,
   },
 );

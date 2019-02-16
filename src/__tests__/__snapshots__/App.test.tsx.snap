@@ -1,0 +1,13 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`App should match snapshot 1`] = `
+<Fragment>
+  <StatusBar
+    animated={false}
+    backgroundColor="rgba(0,0,0,0.2)"
+    showHideTransition="fade"
+    translucent={true}
+  />
+  <Component />
+</Fragment>
+`;

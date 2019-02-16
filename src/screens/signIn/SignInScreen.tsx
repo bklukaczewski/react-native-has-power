@@ -9,7 +9,7 @@ import {
   TouchableHighlight,
   View,
 } from 'react-native';
-import firebase from 'react-native-firebase';
+import firebase, { RNFirebase } from 'react-native-firebase';
 import SplashScreen from 'react-native-splash-screen';
 import { NavigationInjectedProps } from 'react-navigation';
 import { palette } from '../../styles';
@@ -58,6 +58,13 @@ export class SignInScreen extends React.PureComponent<
 
   componentDidMount() {
     SplashScreen.hide();
+    firebase.auth().onAuthStateChanged((user: RNFirebase.User | null) => {
+      if (user) {
+        this.props.navigation.navigate('Authenticated');
+      } else {
+        this.props.navigation.navigate('Unauthenticated');
+      }
+    });
   }
 
   render() {
@@ -95,16 +102,16 @@ export class SignInScreen extends React.PureComponent<
         </TouchableHighlight>
 
         <TouchableHighlight
-            underlayColor={palette.underlay}
-            onPress={this.navigateToSignUp}
+          underlayColor={palette.underlay}
+          onPress={this.navigateToSignUp}
         >
           <View style={styles.container}>
             <Image
-                style={styles.buttonImage}
-                source={{
-                  uri:
-                      'https://facebook.github.io/react-native/docs/assets/favicon.png',
-                }}
+              style={styles.buttonImage}
+              source={{
+                uri:
+                  'https://facebook.github.io/react-native/docs/assets/favicon.png',
+              }}
             />
             <Text style={styles.text}>Go to sign up</Text>
           </View>

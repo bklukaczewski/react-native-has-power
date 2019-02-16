@@ -1,8 +1,9 @@
 import React from 'react';
 import { StyleSheet, Text, TextInput, TouchableHighlight, View } from 'react-native';
+import firebase from 'react-native-firebase';
+import ImagePicker from 'react-native-image-crop-picker';
 
 import { FullScreenTemplate } from 'components';
-import firebase from 'react-native-firebase';
 
 const getRandomId = (): string => {
     return 'a';
@@ -29,6 +30,14 @@ export class CreateContentScreen extends React.PureComponent<{}, State> {
         this.setState({input: ''});
     };
 
+    addImage = async () => {
+        const image = await ImagePicker.openPicker({
+            compressImageMaxHeight: 1024,
+            compressImageMaxWidth: 1024,
+            compressImageQuality: 0.7,
+        });
+    };
+
     render() {
         return (
             <FullScreenTemplate padded>
@@ -45,6 +54,13 @@ export class CreateContentScreen extends React.PureComponent<{}, State> {
                 >
                     <View style={styles.button}>
                         <Text>Send</Text>
+                    </View>
+                </TouchableHighlight>
+                <TouchableHighlight
+                    onPress={this.addImage}
+                >
+                    <View style={styles.button}>
+                        <Text>Add image</Text>
                     </View>
                 </TouchableHighlight>
             </FullScreenTemplate>

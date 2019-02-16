@@ -4,6 +4,10 @@ import { StyleSheet, Text, TextInput, TouchableHighlight, View } from 'react-nat
 import { FullScreenTemplate } from 'components';
 import firebase from 'react-native-firebase';
 
+const getRandomId = (): string => {
+    return 'a';
+};
+
 interface State {
     input: string;
 }
@@ -19,7 +23,8 @@ export class CreateContentScreen extends React.PureComponent<{}, State> {
             .collection('contents');
         await contentCollectionRef.add({
             email: firebase.auth().currentUser!.email,
-            content: this.state.input
+            content: this.state.input,
+            id: getRandomId(),
         });
         this.setState({input: ''});
     };

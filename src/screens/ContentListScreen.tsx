@@ -5,9 +5,10 @@ import { FullScreenTemplate } from 'components';
 import firebase, {RNFirebase} from 'react-native-firebase';
 import { palette } from '../styles';
 
-interface Content {
+export interface Content {
   email: string;
   content: string;
+  id: string;
 }
 
 interface State {

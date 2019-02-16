@@ -14,9 +14,14 @@ export class CreateContentScreen extends React.PureComponent<{}, State> {
         input: '',
     };
 
-    sendMessage = () => {
-        console.warn(this.state.input);
-        console.warn(firebase.auth().currentUser!.email);
+    sendMessage = async () => {
+        const contentCollectionRef = firebase.firestore()
+            .collection('contents');
+        await contentCollectionRef.add({
+            email: firebase.auth().currentUser!.email,
+            content: this.state.input
+        });
+        this.setState({input: ''});
     };
 
     render() {

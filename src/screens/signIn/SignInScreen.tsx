@@ -1,5 +1,6 @@
 import React from 'react';
-import {Button, Image, StyleSheet, Text, TextInput, TouchableHighlight, View} from 'react-native';
+import {Alert, Button, Image, StyleSheet, Text, TextInput, TouchableHighlight, View} from 'react-native';
+import firebase from 'react-native-firebase';
 import SplashScreen from 'react-native-splash-screen';
 import { NavigationInjectedProps } from 'react-navigation';
 import {palette} from '../../styles';
@@ -18,9 +19,15 @@ export class SignInScreen extends React.PureComponent<NavigationInjectedProps, S
       login: '',
       password: '',
   };
-  onSubmit = () => {
-     console.warn(this.state.login);
-     console.warn(this.state.password);
+
+  onSubmit = async () => {
+      try {
+          const user = await firebase.auth().createUserWithEmailAndPassword(
+              this.state.login, this.state.password
+          );
+      } catch (e) {
+          Alert.alert('error', e.message);
+      }
   };
 
   componentDidMount() {
@@ -33,6 +40,7 @@ export class SignInScreen extends React.PureComponent<NavigationInjectedProps, S
               <Text>Login</Text>
               <TextInput
                   style={styles.textInput}
+                  keyboardType="email-address"
                   onChangeText={(text) => this.setState({ login: text })}
                   value={this.state.login}
               />
@@ -43,7 +51,7 @@ export class SignInScreen extends React.PureComponent<NavigationInjectedProps, S
                   secureTextEntry
                   value={this.state.password}
               />
-          <TouchableHighlight onPress={this.onSubmit}>
+          <TouchableHighlight underlayColor={palette.underlay} onPress={this.onSubmit}>
               <View
                   style={styles.container}>
                   <Image
@@ -64,7 +72,6 @@ const styles = StyleSheet.create({
         flexDirection: 'row',
         justifyContent: 'center',
         alignItems: 'center',
-        marginTop: 10,
         backgroundColor: palette.primary,
         padding: 10,
         borderRadius: 10,
